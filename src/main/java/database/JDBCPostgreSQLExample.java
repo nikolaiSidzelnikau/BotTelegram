@@ -12,7 +12,9 @@ public class JDBCPostgreSQLExample {
     static final String DB_URL = "";
     static final String USER = "";
     static final String PASS = "";
-    public String text;
+    private String text;
+    private String id;
+    private String name;
 
     public String getText(String chat_id) {
         textUserBot(chat_id);
@@ -33,6 +35,7 @@ public class JDBCPostgreSQLExample {
             e.printStackTrace();
         }
     }
+
     public void setRecord(String chat_id, String text_user) {
         String qur = "with x as (select "+chat_id+" as chat_id , '"+text_user+"' as user_text)\n" +
                 "insert into text_id (chat_id,user_text)(select * from x where not exists(select * from text_id c where x.chat_id=c.chat_id));";
@@ -50,6 +53,10 @@ public class JDBCPostgreSQLExample {
             PreparedStatement statement1 = connection.prepareStatement(pois);
             ResultSet resultSet = statement1.executeQuery();
             while (resultSet.next()){
+/*
+                setId(resultSet.getString("chat_id"));
+                setName(resultSet.getString("user_text"));
+*/
                 String id = resultSet.getString("chat_id");
                 String name = resultSet.getString("user_text");
             }
@@ -61,6 +68,7 @@ public class JDBCPostgreSQLExample {
     }
 
     public void getRecord(String chat_id, String users) {
+
         String qur = "with x as (select "+chat_id+" as chat_id , '"+users+"' as users)\n" +
                 "insert into telegrambot (chat_id,users)(select * from x where not exists(select * from telegrambot c where x.chat_id=c.chat_id));";
        String pois = "select * from telegrambot where (chat_id = "+chat_id+" and users = '"+users+"' );";
@@ -72,12 +80,39 @@ public class JDBCPostgreSQLExample {
             PreparedStatement statement1 = connection.prepareStatement(pois);
             ResultSet resultSet = statement1.executeQuery();
             while (resultSet.next()){
-                String id = resultSet.getString("chat_id");
-                String name = resultSet.getString("users");
+                setId(resultSet.getString("chat_id"));
+                setName(resultSet.getString("users"));
+
+               /* String id = resultSet.getString("chat_id");
+                String name = resultSet.getString("users");*/
             }
             connection.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
