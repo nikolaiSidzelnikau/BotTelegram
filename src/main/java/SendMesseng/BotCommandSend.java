@@ -3,7 +3,7 @@ package SendMesseng;
 import Button.Button;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-public class TestBotCommand {
+public class BotCommandSend {
     Button button = new Button();
 
     public SendMessage sendMessage(String chat_id, String text,
