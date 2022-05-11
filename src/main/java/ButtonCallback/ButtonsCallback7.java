@@ -8,16 +8,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.concurrent.TimeUnit;
 
-public class ButtonsCallback7 implements ButtonsCallback,Runnable{
+public class ButtonsCallback7 implements ButtonsCallback, Runnable {
     CallbackQuery callbackQuery;
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
-    private String chat_id;
-    private String text;
-    private String name;
-    private String nameBot;
+    private final String chat_id;
+    private final String text;
+    private final String name;
+    private final String nameBot;
 
-    public ButtonsCallback7(String chat_id, String text,String name,String nameBot) {
+    public ButtonsCallback7(String chat_id, String text, String name, String nameBot) {
         this.chat_id = chat_id;
         this.text = text;
         this.name = name;
@@ -25,12 +25,17 @@ public class ButtonsCallback7 implements ButtonsCallback,Runnable{
     }
 
     @Override
-    public void getCallbackQuery(Update update,String chat_id,String text) {
+    public void getCallbackQuery(Update update, String chat_id, String text) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("7")) {
-            Thread thread = new Thread(new ButtonsCallback7(chat_id,text,name,nameBot));
-            thread.start();
+            if (!update.getCallbackQuery().getFrom().getId().equals(update.getCallbackQuery().getFrom().getId())) {
+                System.out.println("Второй поток");
+                Thread thread = new Thread(new ButtonsCallback7(chat_id, text, name, nameBot));
+                thread.start();
+            }
+            Thread thread1 = new Thread(new ButtonsCallback7(chat_id, text, name, nameBot));
+            thread1.start();
         }
     }
 
@@ -38,12 +43,12 @@ public class ButtonsCallback7 implements ButtonsCallback,Runnable{
     public void run() {
         for (int i = 0; i < 1000; i++) {
             try {
-                bot.execute(botCommand.sendMessage(chat_id,"@"+nameBot+"\n"+"@"+name+"\n"+text));
+                bot.execute(botCommand.sendMessage(chat_id, "@" + nameBot + "\n" + "@" + name + "\n" + text));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
             try {
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

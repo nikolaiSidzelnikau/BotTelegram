@@ -15,10 +15,10 @@ public class ButtonsCallback3 implements ButtonsCallback{
     public void getCallbackQuery(Update update,String chat_id,String text) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
-        if (data.equals("")){
+        if (data.equals("3")){
             try {
                 bot.execute(botCommand.sendMessage(chat_id,
-                        "Введите текст отправить текст Enter и нажмите кнопку ОК","OK","6"));
+                        "Введите текст отправить текст Enter и нажмите кнопку ОК","OK","2"));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }

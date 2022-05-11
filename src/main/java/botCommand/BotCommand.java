@@ -10,12 +10,14 @@ public class BotCommand extends Bot {
     public void onUpdateReceived(Update update) {
         super.onUpdateReceived(update);
         if (update.hasMessage()) {
-            BotCommands botCommands1 = new BotCommandStart();
-            botCommands1.command(update,jdbsDateBase.getUser_group());
-            BotCommands botCommands2 = new BotCommandStartBot();
-            botCommands2.command(update,jdbsDateBase.getChat_id());
-            BotCommands botCommands3 = new BotCommandHelp();
-            botCommands3.command(update,jdbsDateBase.getChat_id());
+                BotCommands botCommands1 = new BotCommandStart();
+                botCommands1.command(update,jdbsDateBase.getUser_group());
+
+                BotCommands botCommands2 = new BotCommandStartBot();
+                botCommands2.command(update,jdbsDateBase.getChat_id());
+
+                BotCommands botCommands4 = new BotCommandHelp();
+                botCommands4.command(update,jdbsDateBase.getChat_id());
         }else  if (update.hasCallbackQuery()){
             ButtonsCallback buttonsCallback1 = new ButtonsCallback1();
             buttonsCallback1.getCallbackQuery(update,jdbsDateBase.getChat_id(), jdbsDateBase.getText_user());
@@ -32,7 +34,8 @@ public class BotCommand extends Bot {
             ButtonsCallback buttonsCallback7= new ButtonsCallback7(jdbsDateBase.getChat_id(),jdbsDateBase.getText_user(),
                     jdbsDateBase.getUser_name(),getBotUsername());
             buttonsCallback7.getCallbackQuery(update,jdbsDateBase.getUser_group(),jdbsDateBase.getText_user());
-            ButtonsCallback buttonsCallback8 = new ButtonsCallback8();
+            ButtonsCallback buttonsCallback8 = new ButtonsCallback8(dateBaseSearch.getUser_chat_id(),dateBaseSearch.getUser_text(),
+                    dateBaseSearch.getName_user(),getBotUsername());
             buttonsCallback8.getCallbackQuery(update,jdbsDateBase.getChat_id(),jdbsDateBase.getText_user());
         }
     }
