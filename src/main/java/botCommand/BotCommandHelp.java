@@ -1,13 +1,13 @@
 package botCommand;
 
-import org.telegram.telegrambots.meta.api.objects.Update;
-
 public class BotCommandHelp implements BotCommands{
 
     @Override
-    public void command(Update update,String chat_id) {
-        if (update.getMessage().getText().equals("/help")){
+    public void command(String chat_id) {
+    }
 
-        }
+    @Override
+    public void commandFalse(String chat_id){
+
     }
 }

@@ -2,7 +2,8 @@ package ButtonCallback;
 
 import SendMesseng.BotCommandSend;
 import bot.Bot;
-import database.JDBSDateBase;
+import database.DateBaseSearch;
+import database.JDBSDateBaseSearch;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -13,33 +14,34 @@ public class ButtonsCallback8 implements ButtonsCallback,Runnable{
     CallbackQuery callbackQuery;
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
-    JDBSDateBase jdbsDateBase = new JDBSDateBase();
+    JDBSDateBaseSearch jdbsDateBase = new DateBaseSearch();
 
-    private final String chat_id;
+
     private final String text;
     private final String name;
     private final String nameBot;
 
-    public ButtonsCallback8(String chat_id, String text, String name, String nameBot) {
-        this.chat_id = chat_id;
+    public ButtonsCallback8( String text, String name, String nameBot) {
+
         this.text = text;
         this.name = name;
         this.nameBot = nameBot;
     }
 
     @Override
-    public void getCallbackQuery(Update update,String chat_id,String text) {
+    public Update getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("8")) {
             if (!update.getCallbackQuery().getFrom().getId().equals(update.getCallbackQuery().getFrom().getId())) {
                 System.out.println("Второй поток");
-                Thread thread = new Thread(new ButtonsCallback8(chat_id, text, name, nameBot));
+                Thread thread = new Thread(new ButtonsCallback8( text, name, nameBot));
                 thread.start();
             }
-            Thread thread1 = new Thread(new ButtonsCallback8(chat_id, text, name, nameBot));
+            Thread thread1 = new Thread(new ButtonsCallback8( text, name, nameBot));
             thread1.start();
         }
+        return update;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ButtonsCallback8 implements ButtonsCallback,Runnable{
             for (String s1: jdbsDateBase.getGroup()) {
                 try {
                     bot.execute(botCommand.sendMessage(s1,
-                            "@" + nameBot + "\n" + "@" + name + "\n" + text));
+                            "@" + nameBot + "\n" + text));
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }

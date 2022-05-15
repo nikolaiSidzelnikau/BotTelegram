@@ -2,7 +2,6 @@ package botCommand;
 
 import SendMesseng.BotCommandSend;
 import bot.Bot;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BotCommandStartBot implements BotCommands{
@@ -10,8 +9,7 @@ public class BotCommandStartBot implements BotCommands{
     Bot bot = new Bot();
 
     @Override
-    public void command(Update update,String chat_id) {
-        if (update.getMessage().getText().equals("/startbot")){
+    public void command(String chat_id) {
             try {
                 bot.execute(botCommand.sendMessage(chat_id,
                         "Добро пожаловать",
@@ -20,6 +18,15 @@ public class BotCommandStartBot implements BotCommands{
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+    }
+
+    @Override
+    public void commandFalse(String chat_id){
+        try {
+            bot.execute(botCommand.sendMessage
+                    (chat_id, "Уважаемый пользователь перейдите в бот чат и напишите /startbot"));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 }
