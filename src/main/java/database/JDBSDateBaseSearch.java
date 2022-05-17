@@ -23,4 +23,8 @@ public interface JDBSDateBaseSearch {
     String getUser_text();
 
     void setUser_text(String user_chat_id, String text_user);
+
+   /* String getIdThread(String user_chat_id);
+
+    void setIdThread(String user_chat_id,String nameThread);*/
 }

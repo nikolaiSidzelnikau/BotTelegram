@@ -12,7 +12,7 @@ public class DateBaseSearch implements JDBSDateBaseSearch{
     private String user_text;
     private final List<String> group_id = new ArrayList<>();
     private String userGroup;
-
+    private String idThread;
 
     private final PoolDateBase poolDateBase = new PoolDateBase();
     private final DataSource dataSource = new DataSource();
@@ -229,4 +229,44 @@ public class DateBaseSearch implements JDBSDateBaseSearch{
         this.user_text = text_user;
     }
 
+   /* public String getIdThread(String user_chat_id) {
+        dataSource.setPoolProperties(poolDateBase.getP());
+        String pois = "select * from telegram_thread where id_user = "+user_chat_id+" ;";
+        try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+            PreparedStatement statement1 = connection.prepareStatement(pois);
+            ResultSet resultSet = statement1.executeQuery();
+            if (!resultSet.next()){
+                user_chat_id = null;
+            }
+            while (resultSet.next()){
+                idThread = (resultSet.getString("id_user"));
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user_chat_id;
+    }
+
+    public void setIdThread(String user_chat_id,String nameThread) {
+        dataSource.setPoolProperties(poolDateBase.getP());
+        String qur = "with x as (select "+user_chat_id+" as id_user , '"+nameThread+"' as user_thread)\n" +
+                "insert into telegram_thread (id_user,user_thread)(select * from x where not exists(select * from telegram_thread c where x.id_user=c.id_user));";
+        String sasd = "UPDATE telegram_thread \n" +
+                "set user_thread = '"+nameThread+"'\n" +
+                "where id_user  = '"+user_chat_id+"';";
+        try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+            PreparedStatement statement2 = connection.prepareStatement(qur);
+            statement2.executeUpdate();
+            PreparedStatement statement = connection.prepareStatement(sasd);
+            statement.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        this.user_chat_id = user_chat_id;
+        this.user_text = nameThread;
+    }*/
 }

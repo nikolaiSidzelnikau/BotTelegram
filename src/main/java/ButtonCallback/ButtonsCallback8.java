@@ -29,19 +29,13 @@ public class ButtonsCallback8 implements ButtonsCallback,Runnable{
     }
 
     @Override
-    public Update getCallbackQuery(Update update, String chat_id) {
+    public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("8")) {
-            if (!update.getCallbackQuery().getFrom().getId().equals(update.getCallbackQuery().getFrom().getId())) {
-                System.out.println("Второй поток");
-                Thread thread = new Thread(new ButtonsCallback8( text, name, nameBot));
-                thread.start();
-            }
             Thread thread1 = new Thread(new ButtonsCallback8( text, name, nameBot));
             thread1.start();
         }
-        return update;
     }
 
     @Override

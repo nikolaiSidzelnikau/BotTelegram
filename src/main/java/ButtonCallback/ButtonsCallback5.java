@@ -11,7 +11,7 @@ public class ButtonsCallback5 implements ButtonsCallback{
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
     @Override
-    public Update getCallbackQuery(Update update, String chat_id) {
+    public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("")){
@@ -22,6 +22,5 @@ public class ButtonsCallback5 implements ButtonsCallback{
                 e.printStackTrace();
             }
         }
-        return update;
     }
 }

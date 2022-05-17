@@ -17,7 +17,7 @@ public class ButtonsCallback6 implements ButtonsCallback{
     }
 
     @Override
-    public Update getCallbackQuery(Update update, String chat_id) {
+    public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("6")){
@@ -28,7 +28,6 @@ public class ButtonsCallback6 implements ButtonsCallback{
                 e.printStackTrace();
             }
         }
-        return update;
     }
 
     private String getText() {

@@ -12,7 +12,7 @@ public class ButtonsCallback3 implements ButtonsCallback{
 
     Bot bot = new Bot();
     @Override
-    public Update getCallbackQuery(Update update, String chat_id) {
+    public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("3")){
@@ -23,6 +23,5 @@ public class ButtonsCallback3 implements ButtonsCallback{
                 e.printStackTrace();
             }
         }
-        return update;
     }
 }

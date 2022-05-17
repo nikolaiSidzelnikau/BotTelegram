@@ -8,7 +8,7 @@ public class ButtonsCallbacks {
     public void getUpdateHasCallbackQuery(Update update, String id_chat, String id_group, String name, String nameBot, String text) {
         ButtonsCallback buttonsCallback1 = new ButtonsCallback1();
         buttonsCallback1.getCallbackQuery(update, id_chat);
-        ButtonsCallback buttonsCallback2 = new ButtonsCallback2();
+        ButtonsCallback buttonsCallback2 = new ButtonsCallback2(text);
         buttonsCallback2.getCallbackQuery(update, id_chat);
         ButtonsCallback buttonsCallback3 = new ButtonsCallback3();
         buttonsCallback3.getCallbackQuery(update, id_chat);

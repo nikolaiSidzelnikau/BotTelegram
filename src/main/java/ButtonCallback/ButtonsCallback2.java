@@ -11,18 +11,27 @@ public class ButtonsCallback2 implements ButtonsCallback{
     CallbackQuery callbackQuery;
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
+    private final String text;
+
+    public ButtonsCallback2(String text) {
+        this.text = text;
+    }
+
     @Override
-    public Update getCallbackQuery(Update update, String chat_id) {
+    public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("2")){
             try {
-                bot.execute(botCommand.sendMessage(chat_id, "Этот текст вы хотите пересылать ? \n"+ "text",
+                bot.execute(botCommand.sendMessage(chat_id, "Этот текст вы хотите пересылать ? \n"+ getText(),
                         "OK","8","НЕТ","4"));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
         }
-        return update;
+    }
+
+    public String getText() {
+        return text;
     }
 }

@@ -7,7 +7,7 @@ public class PoolDateBase  {
     public PoolProperties getP() {
         p = new PoolProperties();
         p.setUrl("");
-        p.setDriverClassName("org.postgresql.Driver");
+        p.setDriverClassName("");
         p.setUsername("");
         p.setPassword("");
         p.setJmxEnabled(true);
