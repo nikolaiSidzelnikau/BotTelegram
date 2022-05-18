@@ -2,29 +2,29 @@ package ButtonCallback;
 
 import SendMesseng.BotCommandSend;
 import bot.Bot;
-import database.DateBaseSearch;
-import database.JDBSDateBaseSearch;
+import database.DataBaseConnection;
+import database.DataBaseGroup;
+import database.DataBaseGroup_id;
+import database.DateBaseCommands;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class ButtonsCallback8 implements ButtonsCallback,Runnable{
     CallbackQuery callbackQuery;
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
-    JDBSDateBaseSearch jdbsDateBase = new DateBaseSearch();
-
+    DateBaseCommands dateBaseCommands = new DataBaseGroup_id();
+    DataBaseGroup_id dataBaseGroup_id = new DataBaseGroup_id();
 
     private final String text;
-    private final String name;
     private final String nameBot;
-
-    public ButtonsCallback8( String text, String name, String nameBot) {
-
+    public ButtonsCallback8( String text, String nameBot) {
         this.text = text;
-        this.name = name;
         this.nameBot = nameBot;
     }
 
@@ -33,7 +33,7 @@ public class ButtonsCallback8 implements ButtonsCallback,Runnable{
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("8")) {
-            Thread thread1 = new Thread(new ButtonsCallback8( text, name, nameBot));
+            Thread thread1 = new Thread(new ButtonsCallback8( text, nameBot));
             thread1.start();
         }
     }
@@ -41,19 +41,19 @@ public class ButtonsCallback8 implements ButtonsCallback,Runnable{
     @Override
     public void run() {
         for (int s = 0;s<1000;s++) {
-            for (String s1: jdbsDateBase.getGroup()) {
-                try {
-                    bot.execute(botCommand.sendMessage(s1,
-                            "@" + nameBot + "\n" + text));
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
+                for (String s1:dataBaseGroup_id.group_id ) {
+                    try {
+                        bot.execute(botCommand.sendMessage(s1,
+                                "@" + nameBot + "\n" + text));
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
             try {
                 TimeUnit.SECONDS.sleep(30);
             } catch (InterruptedException e) {

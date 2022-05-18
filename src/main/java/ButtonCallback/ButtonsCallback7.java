@@ -14,13 +14,11 @@ public class ButtonsCallback7 implements ButtonsCallback, Runnable {
     private final String id_chat;
     private final String id_group;
     private final String text;
-    private final String name;
     private final String nameBot;
-    public ButtonsCallback7(String id_chat, String chat_id, String text, String name, String nameBot) {
+    public ButtonsCallback7(String id_chat, String chat_id, String text, String nameBot) {
         this.id_chat = id_chat;
         this.id_group = chat_id;
         this.text = text;
-        this.name = name;
         this.nameBot = nameBot;
     }
 
@@ -29,7 +27,7 @@ public class ButtonsCallback7 implements ButtonsCallback, Runnable {
         callbackQuery = update.getCallbackQuery();
         String data = callbackQuery.getData();
         if (data.equals("7")) {
-            Thread thread1 = new Thread(new ButtonsCallback7(id_chat, chat_id, text, name, nameBot));
+            Thread thread1 = new Thread(new ButtonsCallback7(id_chat, chat_id, text, nameBot));
             thread1.start();
         }
     }
