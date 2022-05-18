@@ -8,14 +8,12 @@ import database.DataBaseConnection;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.sql.Connection;
 import java.util.Objects;
 
 public class Bot extends TelegramLongPollingBot {
     private String getId;
     BotCommands botCommands1;
     BotCommands botCommands2;
-    Connection connection;
     ButtonsCallbacks buttonsCallbacks = new ButtonsCallbacks();
     DataBaseConnection dataBaseConnection = new DataBaseConnection();
     DESDecrypter desDecrypter = new DESDecrypter();
@@ -25,9 +23,11 @@ public class Bot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             if (update.getMessage().getText().equals("/start") && update.getMessage().getChatId() < 0) {
                 dataBaseConnection.getConnections(String.valueOf(update.getMessage().getFrom().getId()),
+                        update.getMessage().getFrom().getUserName(),2);
+                dataBaseConnection.getConnections(String.valueOf(update.getMessage().getFrom().getId()),
                         String.valueOf(update.getMessage().getChatId()),4);
-                dataBaseConnection.getConnections(String.valueOf(update.getMessage().getChatId()),
-                        "",6);
+                dataBaseConnection.getConnections(String.valueOf(update.getMessage().getFrom().getId()),
+                        String.valueOf(update.getMessage().getChatId()),6);
                 botCommands1 = new BotCommandStart();
                 botCommands1.command(dataBaseConnection.getConnections("","",3));
             }else if (update.getMessage().getText().equals("/start") && update.getMessage().getChatId() > 0){

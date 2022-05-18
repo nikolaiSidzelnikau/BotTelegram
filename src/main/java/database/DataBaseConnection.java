@@ -21,6 +21,7 @@ public class DataBaseConnection {
         dataSource.setPoolProperties(poolDateBase.getP());
         try {
             Connection connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
             switch (number){
                 case 1:
                     textConnection = dateBaseUser_chat_id.getDataBase(connection,chat_id);
@@ -50,6 +51,7 @@ public class DataBaseConnection {
                    textConnection = dateBaseUser_chat_id.getDataBase(connection);
                     break;
             }
+            connection.commit();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

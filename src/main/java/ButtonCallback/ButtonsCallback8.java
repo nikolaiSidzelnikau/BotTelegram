@@ -2,16 +2,12 @@ package ButtonCallback;
 
 import SendMesseng.BotCommandSend;
 import bot.Bot;
-import database.DataBaseConnection;
-import database.DataBaseGroup;
 import database.DataBaseGroup_id;
 import database.DateBaseCommands;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class ButtonsCallback8 implements ButtonsCallback,Runnable{

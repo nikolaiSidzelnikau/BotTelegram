@@ -11,7 +11,6 @@ public class ButtonsCallback4 implements ButtonsCallback{
     BotCommandSend botCommand = new BotCommandSend();
     Bot bot = new Bot();
 
-
     @Override
     public void getCallbackQuery(Update update, String chat_id) {
         callbackQuery = update.getCallbackQuery();
