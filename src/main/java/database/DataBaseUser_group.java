@@ -31,8 +31,13 @@ public class DataBaseUser_group implements DateBaseCommands{
         String qur = "with x as (select "+user_chat_id+"  as chat_id , "+ name_or_chat_or_text +" as user_group)\n" +
                 "insert into group_id (chat_id,user_group)" +
                 "(select * from x where not exists(select * from group_id t where x.chat_id = t.chat_id));";
+        String sasd = "UPDATE group_id \n" +
+                "set user_group = '"+ name_or_chat_or_text +"'\n" +
+                "where chat_id  = '"+user_chat_id+"';";
         PreparedStatement statement2 = connection.prepareStatement(qur);
         statement2.executeUpdate();
+        PreparedStatement statement = connection.prepareStatement(sasd);
+        statement.executeUpdate();
         this.user_chat_id = user_chat_id;
         this.name_or_chat = name_or_chat_or_text;
     }

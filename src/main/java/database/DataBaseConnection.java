@@ -4,6 +4,8 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataBaseConnection {
@@ -14,10 +16,13 @@ public class DataBaseConnection {
     DateBaseCommands dateBaseUser_group = new DataBaseUser_group();
     DateBaseCommands dateBaseUser_text = new DatabaseUser_text();
     DateBaseCommands dataBaseGroup_id = new DataBaseGroup_id();
-    /*DataBaseGroup dateBase_group = new DataBaseGroup();*/
+    public List<String> group = new ArrayList<>();
 
+    public List<String> getGroup() {
+        return group;
+    }
 
-    public String getConnections(String chat_id,String name_or_chat_or_text,int number) {
+    public String getConnections(String chat_id, String name_or_chat_or_text, int number) {
         dataSource.setPoolProperties(poolDateBase.getP());
         try {
             Connection connection = dataSource.getConnection();
@@ -36,7 +41,9 @@ public class DataBaseConnection {
                     dateBaseUser_group.setDataBase(connection,chat_id,name_or_chat_or_text);
                     break;
                 case 5:
-                    textConnection = String.valueOf(dataBaseGroup_id.getGroup(connection));
+                    for (String s: dataBaseGroup_id.getGroup(connection)) {
+                        getGroup().add(s);
+                    }
                     break;
                 case 6:
                    dataBaseGroup_id.setDataBase(connection,chat_id,name_or_chat_or_text);
