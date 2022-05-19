@@ -5,6 +5,8 @@ import botCommand.BotCommandStart;
 import botCommand.BotCommandStartBot;
 import botCommand.BotCommands;
 import database.DataBaseConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -17,6 +19,7 @@ public class Bot extends TelegramLongPollingBot {
     ButtonsCallbacks buttonsCallbacks = new ButtonsCallbacks();
     DataBaseConnection dataBaseConnection = new DataBaseConnection();
     DESDecrypter desDecrypter = new DESDecrypter();
+    final static Logger logger = LoggerFactory.getLogger(Bot.class);
 
     @Override
     public void onUpdateReceived( Update update) {

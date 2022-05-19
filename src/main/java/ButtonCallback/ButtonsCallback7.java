@@ -2,6 +2,8 @@ package ButtonCallback;
 
 import SendMesseng.BotCommandSend;
 import bot.Bot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -15,6 +17,9 @@ public class ButtonsCallback7 implements ButtonsCallback, Runnable {
     private final String id_group;
     private final String text;
     private final String nameBot;
+
+    final static Logger logger = LoggerFactory.getLogger(ButtonsCallback7.class);
+
     public ButtonsCallback7(String id_chat, String chat_id, String text, String nameBot) {
         this.id_chat = id_chat;
         this.id_group = chat_id;
@@ -47,4 +52,5 @@ public class ButtonsCallback7 implements ButtonsCallback, Runnable {
             }
         }
     }
+
 }

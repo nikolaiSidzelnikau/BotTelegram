@@ -1,5 +1,8 @@
 package database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +12,8 @@ import java.util.List;
 
 public class DataBaseGroup_id implements DateBaseCommands{
     public  List<String> group_id = new ArrayList<>();
+    private int group = 0;
+    final static Logger logger = LoggerFactory.getLogger(DataBaseGroup_id.class);
 
     @Override
     public String getDataBase(Connection connection) throws SQLException {
@@ -36,7 +41,9 @@ public class DataBaseGroup_id implements DateBaseCommands{
         ResultSet resultSet = statement1.executeQuery();
         while (resultSet.next()){
             group_id.add(resultSet.getString("id_group"));
+            group++;
         }
+        logger.info(String.valueOf(group));
         return group_id;
     }
 
